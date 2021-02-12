@@ -1,12 +1,13 @@
 
 # Code is designed to run on windows 10,
 # 3rd-party libraries will have a comment to install
-# them using PIP.
+# them using pip.
 
 
 import sys
 import os
 
+# Change to the printer's IP address or hostname
 PRINTER_HOSTNAME = "192.168.101"
 
 # Python supports UNC paths on windows using forward slashes
