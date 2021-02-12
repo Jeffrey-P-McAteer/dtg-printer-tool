@@ -53,7 +53,82 @@ def main(args=sys.argv):
     
 
     with open(new_job_file, 'w') as fd:
-      fd.write(order_xml)
+      fd.write("""
+<?xml version="1.0"?>
+<Order>
+  <Id>14SB1201008714</Id>
+  <Images>
+    <Image>
+      <Id>14SB1201008714-0</Id>
+      <SourceImage>/home/aeoon/AeoonPrint/jobs/cat.png</SourceImage>
+      <RipedImage>cat.rip</RipedImage>
+      <RipProfile>shirt-white</RipProfile>
+      <ColorPasses>3</ColorPasses>
+      <Size>
+        <Width>100</Width>
+        <Height>240</Height>
+      </Size>
+      <Rotation>0</Rotation>
+      <RipStatus>
+        <StatusCode>1</StatusCode>
+        <Message>Ok</Message>
+      </RipStatus>
+    </Image>
+    <Image>
+      <Id>14SB1201008714-1</Id>
+      <SourceImage>/home/aeoon/AeoonPrint/jobs/Apples.png</SourceImage>
+      <RipedImage>Apples.rip</RipedImage>
+      <RipProfile>shirt-white</RipProfile>
+      <ColorPasses>3</ColorPasses>
+      <Size>
+        <Width>100</Width>
+        <Height>240</Height>
+      </Size>
+      <Rotation>0</Rotation>
+      <RipStatus>
+        <StatusCode>1</StatusCode>
+        <Message>Ok</Message>
+      </RipStatus>
+    </Image>
+  </Images>
+  <Products>
+    <Product>
+      <Id>14SB1201008714-p1</Id>
+      <DesiredCount>1</DesiredCount>
+      <Material>AAA of the Loom white, L</Material>
+      <Prints>
+        <Print>
+          <Id>14SB1201008714 -print1</Id>
+          <ImageId>14SB1201008714-0</ImageId>
+          <PrintArea>front</PrintArea>
+          <Position>
+            <X>0</X>
+            <Y>0</Y>
+          </Position>
+        </Print>
+      </Prints>
+    </Product>
+    <Product>
+      <Id>14SB1201008714-p2</Id>
+      <DesiredCount>1</DesiredCount>
+      <CurrentCount>1</CurrentCount>
+      <Material>CCC of the Loom white, L</Material>
+      <Prints>
+        <Print>
+          <Id>14SB1201008714-print2</Id>
+          <ImageId>14SB1201008714-0</ImageId>
+          <PrintArea>front</PrintArea>
+          <Position>
+            <X>30</X>
+            <Y>0</Y>
+          </Position>
+        </Print>
+      </Prints>
+    </Product>
+  </Products>
+</Order>
+
+""".strip())
 
     print('Job submitted!')
 
