@@ -44,7 +44,7 @@ def search_for_prn(upc):
       continue
 
     for file in filenames:
-      if upc in file.lower():
+      if upc in file.lower() and file.lower().endswith('.prn'):
         # We found it!
         return os.path.join(dirpath, file)
 
@@ -94,6 +94,7 @@ def main(args=sys.argv):
 
       if not prn_file:
         print('[error] Could not find a matching PRN file, has this been ripped yet?')
+        input('Press Enter to continue...')
         continue
 
       print('[info] found {}, moving file...'.format(prn_file))

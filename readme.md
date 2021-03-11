@@ -5,20 +5,25 @@
 
 Ensure [python 3](https://wiki.python.org/moin/BeginnersGuide/Download) is installed.
 
-Download [dtg_tool.py](dtg_tool.py) to any location.
+Download [operator_tool.py](operator_tool.py) to any location.
 
 Double-click on it or open `cmd.exe` and type:
 
 ```
-python %HOMEPATH%\Downloads\dtg_tool.py
+python %HOMEPATH%\Downloads\operator_tool.py
 ```
 
-Where `%HOMEPATH%\Downloads\dtg_tool.py` is the location of the downloaded file (eg `C:\Users\JSmith\Downloads\dtg_tool.py`)
+Where `%HOMEPATH%\Downloads\operator_tool.py` is the location of the downloaded file (eg `C:\Users\JSmith\Downloads\operator_tool.py`)
 
 The tool will then prompt for a barcode, which should be entered using a USB scanner.
-Press enter after the barcode is typed in and the script will begin creating .xml job files on a network drive.
+Press enter after the barcode is typed in and the script will move the first matching `.prn` file into a `PRIMARY_QUEUE` directory on the printer.
 
-TODO should the script wait and scan the orders directory to know when the printer completed a job (we expect the .xml file to be removed from the orders directory)?
+If the number of items in `PRIMARY_QUEUE` is > 5 the operator will be prompted to move the oldest files into a `PRIMARY_COMPLETED` directory.
+This ensures long use does not leave operators searching through a growing queue.
+
+
+The other script, `management_tool.py`, simply prints completed jobs and prompts to save them to the desktop (or any directory set in `JOB_BACKUP_DIRECTORY`).
+
 
 ## Configuration
 
