@@ -18,6 +18,7 @@ import os
 import traceback
 import datetime
 import time
+from pathlib import Path
 
 JOBS_DIRECTORY = '\\\\{}\\'.format(PRINTER_HOSTNAME)
 # For testing
@@ -100,6 +101,8 @@ def main(args=sys.argv):
       print('[info] found {}, moving file...'.format(prn_file))
       primary_queue_file = get_primary_queue_path(prn_file)
       os.rename(prn_file, primary_queue_file)
+      # This ensures the modification timestamps are updated
+      Path(primary_queue_file).touch()
 
       print('[info] {} moved to {}'.format(prn_file, primary_queue_file))
       print("Go select {} from the printer's primary queue".format(os.path.basename(prn_file)))
