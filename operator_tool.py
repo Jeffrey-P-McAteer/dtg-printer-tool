@@ -16,12 +16,19 @@ import datetime
 import time
 from pathlib import Path
 
-# Change "Y:" to the windows drive that has the network share mounted for the printer's jobs directory
+# Change "Y:" to the windows drive that has the network share mounted for the printer's "jobs" directory
 JOBS_DIRECTORY = '\\Y:\\'
 
 # For testing
 if 'JOBS_DIRECTORY' in os.environ:
   JOBS_DIRECTORY = os.environ['JOBS_DIRECTORY']
+
+# Change "X:" to the windows drive that has the network share mounted for the printer's "orders" directory
+PRINT_ORDERS_HOTFOLDER = '\\X:\\'
+
+# For testing
+if 'PRINT_ORDERS_HOTFOLDER' in os.environ:
+  PRINT_ORDERS_HOTFOLDER = os.environ['PRINT_ORDERS_HOTFOLDER']
 
 
 def clear_screen():
@@ -64,10 +71,62 @@ def main(args=sys.argv):
         input('Press Enter to continue...')
         continue
 
-      print("Inserting {} into the printer's primary queue".format(os.path.basename(prn_file)))
+      prn_file_basename = os.path.basename(prn_file)
+      job_name = prn_file_basename.replace('.prn', '')
+      job_xml_file = os.path.join(PRINT_ORDERS_HOTFOLDER, job_name+'.xml')
 
-      # TODO reverse-engineer network message to tell printer to print prn_file next in line
-      
+      print("Inserting job {} from {} into {}".format(job_name, prn_file, job_xml_file))
+
+      with open(job_xml_file, 'w') as fd:
+        fd.write('''
+<Order>
+  <Id>{job_name}</Id>
+  <Images>
+    <Image>
+      <Id>{job_name}-i0</Id>
+      <SourceImage>/home/aeoon/AeoonPrint/jobs/{job_name}.png</SourceImage>
+      <RipedImage>{prn_file_basename}</RipedImage>
+      <RipProfile>shirt-white</RipProfile>
+      <ColorPasses>3</ColorPasses>
+      <Size>
+        <Width>100</Width>
+        <Height>240</Height>
+      </Size>
+      <Rotation>0</Rotation>
+      <RipStatus>
+        <StatusCode>1</StatusCode>
+        <Message>Ok</Message>
+      </RipStatus>
+    </Image>
+  </Images>
+  <Products>
+    <Product>
+      <Id>{job_name}-p0</Id>
+      <DesiredCount>1</DesiredCount>
+      <Material>AAA of the Loom white, L</Material>
+      <Prints>
+        <Print>
+          <Id>{job_name}-p0p1</Id>
+          <ImageId>{job_name}-i0</ImageId>
+          <PrintArea>front</PrintArea>
+          <Position>
+            <X>0</X>
+            <Y>0</Y>
+          </Position>
+        </Print>
+      </Prints>
+    </Product>
+  </Products>
+</Order>
+'''.format(
+  job_name=job_name,
+  prn_file_basename=prn_file_basename,
+  # TODO future parameters I see needing:
+  # print resolution (width x height)
+  # print location (x,y)
+  # RipProfile and ColorPasses
+  # Possibly Material, though this looks like it's purely for humans to read and would not be processed by the printer
+).strip())
 
 
       input('Press Enter to continue...')
@@ -78,7 +137,7 @@ def main(args=sys.argv):
       if isinstance(e, KeyboardInterrupt):
         break
       else:
-        time.sleep(3)
+        time.sleep(5)
 
 
 if __name__ == '__main__':
