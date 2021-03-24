@@ -13,10 +13,8 @@ JOB_BACKUP_DIRECTORY = os.path.normpath(os.path.expanduser("~/Desktop/JOB_BACKUP
 if 'JOB_BACKUP_DIRECTORY' in os.environ:
   JOB_BACKUP_DIRECTORY = os.environ['JOB_BACKUP_DIRECTORY']
 
-# Change to the printer's IP address or hostname
-PRINTER_HOSTNAME = "192.168.1.193"
-
-JOBS_DIRECTORY = '\\\\{}\\'.format(PRINTER_HOSTNAME)
+# Change "Y:" to the windows drive that has the network share mounted for the printer's jobs directory
+JOBS_DIRECTORY = '\\Y:\\'
 # For testing
 if 'JOBS_DIRECTORY' in os.environ:
   JOBS_DIRECTORY = os.environ['JOBS_DIRECTORY']
