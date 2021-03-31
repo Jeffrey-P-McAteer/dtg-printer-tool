@@ -3,12 +3,6 @@
 # 3rd-party libraries will have a comment to install
 # them using pip.
 
-# Change to the max # of prints possible at one time.
-# Operators will be asked to confirm that old jobs can be moved to
-# PRIMARY_QUEUE_COMPLETED_DIRECTORY after we have this many in PRIMARY_QUEUE_DIRECTORY
-PRIMARY_QUEUE_SIZE = 5
-
-
 import sys
 import os
 import traceback
