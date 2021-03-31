@@ -11,14 +11,14 @@ import time
 from pathlib import Path
 
 # Change "Y:" to the windows drive that has the network share mounted for the printer's "jobs" directory
-JOBS_DIRECTORY = '\\Y:\\'
+JOBS_DIRECTORY = 'Y:\\'
 
 # For testing
 if 'JOBS_DIRECTORY' in os.environ:
   JOBS_DIRECTORY = os.environ['JOBS_DIRECTORY']
 
 # Change "X:" to the windows drive that has the network share mounted for the printer's "orders" directory
-PRINT_ORDERS_HOTFOLDER = '\\X:\\'
+PRINT_ORDERS_HOTFOLDER = 'X:\\'
 
 # For testing
 if 'PRINT_ORDERS_HOTFOLDER' in os.environ:
