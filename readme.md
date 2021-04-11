@@ -38,7 +38,7 @@ PRINTER_HOSTNAME = "192.168.101"
 
 ## Usage (rconn tool)
 
-The rconn tool works by running 2 processes: one on the printer to create .xml files in `TODO ORDERS DIR`,
+The rconn tool works by running 2 processes: one on the printer to create .xml files in the printer's `/home/aeoon/AeoonPrint/orders` directory,
 and one on the operator's PC to read in scanned UPC codes and send them to the printer process over the network.
 
 ### Printer setup
