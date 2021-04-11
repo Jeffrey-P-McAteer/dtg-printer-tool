@@ -41,9 +41,18 @@ PRINTER_HOSTNAME = "192.168.101"
 The rconn tool works by running 2 processes: one on the printer to create .xml files in `TODO ORDERS DIR`,
 and one on the operator's PC to read in scanned UPC codes and send them to the printer process over the network.
 
+### Printer setup
+
 1. Install `python` on the printer by running `sudo apt-get install -y python` on the printer.
-2. Copy `rconn_printer_tool.py` to the printer and run it by typing `python rconn_printer_tool.py`
+2. Copy `rconn_printer_tool.py` to the printer
+3. Run `rconn_printer_tool.py` by typing `python rconn_printer_tool.py` into a terminal. This only needs to be done once, when the printer boots up.
 
+### PC Setup
 
+1. Copy `rconn_pc_tool.py` to the printer
+2. Double-click on it or open `cmd.exe` and type `python %HOMEPATH%\Downloads\rconn_pc_tool.py`
+3. Scan UPC codes to send orders to the printer
+
+Where `%HOMEPATH%\Downloads\rconn_pc_tool.py` is the location of the downloaded file (eg `C:\Users\JSmith\Downloads\rconn_pc_tool.py`)
 
 
