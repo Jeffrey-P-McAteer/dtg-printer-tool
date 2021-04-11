@@ -1,7 +1,7 @@
 
 # DTG Printer Tool
 
-## Usage
+## Usage (original tool)
 
 Ensure [python 3](https://wiki.python.org/moin/BeginnersGuide/Download) is installed.
 
@@ -34,6 +34,16 @@ The script begins with several variables which may need to be changed:
 # Note that non-static IPs may change over time
 PRINTER_HOSTNAME = "192.168.101"
 ```
+
+
+## Usage (rconn tool)
+
+The rconn tool works by running 2 processes: one on the printer to create .xml files in `TODO ORDERS DIR`,
+and one on the operator's PC to read in scanned UPC codes and send them to the printer process over the network.
+
+1. Install `python` on the printer by running `sudo apt-get install -y python` on the printer.
+2. Copy `rconn_printer_tool.py` to the printer and run it by typing `python rconn_printer_tool.py`
+
 
 
 
