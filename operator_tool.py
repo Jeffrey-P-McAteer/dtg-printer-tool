@@ -13,12 +13,20 @@ from pathlib import Path
 # Change "Y:" to the windows drive that has the network share mounted for the printer's "jobs" directory
 JOBS_DIRECTORY = 'Y:\\'
 
+# Use this folder if we are on the printer
+if os.path.exists("/home/aeoon/AeoonPrint/jobs"):
+  JOBS_DIRECTORY = "/home/aeoon/AeoonPrint/jobs"
+
 # For testing
 if 'JOBS_DIRECTORY' in os.environ:
   JOBS_DIRECTORY = os.environ['JOBS_DIRECTORY']
 
 # Change "X:" to the windows drive that has the network share mounted for the printer's "orders" directory
 PRINT_ORDERS_HOTFOLDER = 'X:\\'
+
+# Use this folder if we are on the printer
+if os.path.exists("/home/aeoon/AeoonPrint/orders"):
+  PRINT_ORDERS_HOTFOLDER = "/home/aeoon/AeoonPrint/orders"
 
 # For testing
 if 'PRINT_ORDERS_HOTFOLDER' in os.environ:
