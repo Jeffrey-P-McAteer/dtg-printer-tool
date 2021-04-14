@@ -138,7 +138,7 @@ def main(args=sys.argv):
       if isinstance(e, KeyboardInterrupt):
         break
       else:
-        time.sleep(5)
+        raw_input('Press Enter after reporting error to continue...')
 
 
 if __name__ == '__main__':
