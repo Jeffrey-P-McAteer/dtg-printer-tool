@@ -8,7 +8,6 @@ import os
 import traceback
 import datetime
 import time
-from pathlib import Path
 
 # Change "Y:" to the windows drive that has the network share mounted for the printer's "jobs" directory
 JOBS_DIRECTORY = 'Y:\\'
