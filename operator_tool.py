@@ -24,8 +24,8 @@ if 'JOBS_DIRECTORY' in os.environ:
 PRINT_ORDERS_HOTFOLDER = 'X:\\'
 
 # Use this folder if we are on the printer
-if os.path.exists("/home/aeoon/AeoonPrint/orders"):
-  PRINT_ORDERS_HOTFOLDER = "/home/aeoon/AeoonPrint/orders"
+if os.path.exists("/home/aeoon/AeoonPrint/order_jobs"):
+  PRINT_ORDERS_HOTFOLDER = "/home/aeoon/AeoonPrint/order_jobs"
 
 # For testing
 if 'PRINT_ORDERS_HOTFOLDER' in os.environ:
