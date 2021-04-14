@@ -59,7 +59,7 @@ def main(args=sys.argv):
       time.sleep(0.4)
       clear_screen()
 
-      upc = input('Scan/Enter barcode: ')
+      upc = raw_input('Scan/Enter barcode: ')
 
       # Sanity check so hitting enter doesn't select some random file
       if len(upc) < 3:
@@ -69,7 +69,7 @@ def main(args=sys.argv):
 
       if not prn_file:
         print('[error] Could not find a matching PRN file, has this been ripped yet?')
-        input('Press Enter to continue...')
+        raw_input('Press Enter to continue...')
         continue
 
       prn_file_basename = os.path.basename(prn_file)
@@ -130,7 +130,7 @@ def main(args=sys.argv):
 ).strip())
 
 
-      input('Press Enter to continue...')
+      raw_input('Press Enter to continue...')
 
     except Exception as e:
       traceback.print_exc()
