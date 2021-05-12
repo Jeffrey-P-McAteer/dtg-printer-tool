@@ -35,6 +35,11 @@ if 'PRINT_ORDERS_HOTFOLDER' in os.environ:
 def clear_screen():
   os.system('cls' if os.name=='nt' else 'clear')
 
+def get_user_input(prompt='> '):
+  if sys.version_info[0] < 3:
+    return raw_input(prompt)
+  else:
+    return input(prompt)
 
 def search_for_prn(upc):
   """
@@ -57,9 +62,10 @@ def main(args=sys.argv):
   while True:
     try:
       time.sleep(0.4)
-      clear_screen()
+      if not 'DEBUG' in args:
+        clear_screen()
 
-      upc = raw_input('Scan/Enter barcode: ')
+      upc = get_user_input('Scan/Enter barcode: ')
 
       # Sanity check so hitting enter doesn't select some random file
       if len(upc) < 3:
@@ -69,7 +75,7 @@ def main(args=sys.argv):
 
       if not prn_file:
         print('[error] Could not find a matching PRN file, has this been ripped yet?')
-        raw_input('Press Enter to continue...')
+        get_user_input('Press Enter to continue...')
         continue
 
       prn_file_basename = os.path.basename(prn_file)
@@ -129,8 +135,22 @@ def main(args=sys.argv):
   # Possibly Material, though this looks like it's purely for humans to read and would not be processed by the printer
 ).strip())
 
+      print('Wrote job to {}, polling for 10s to see if Aeoon accepts it...'.format(job_xml_file))
+      aeoon_accepted_xml = False
+      num_checks = 10
+      while num_checks > 0:
+        num_checks -= 1
+        time.sleep(1)
+        if not os.path.exists(job_xml_file):
+          aeoon_accepted_xml = True
+          break
 
-      raw_input('Press Enter to continue...')
+      if aeoon_accepted_xml:
+        print('Aeoon accepted XML order!')
+      else:
+        print('Order XML {} still exists, orders hotfolder must not be monitored by Aeoon.'.format(job_xml_file))
+
+      get_user_input('Press Enter to continue...')
 
     except Exception as e:
       traceback.print_exc()
@@ -138,7 +158,7 @@ def main(args=sys.argv):
       if isinstance(e, KeyboardInterrupt):
         break
       else:
-        raw_input('Press Enter after reporting error to continue...')
+        get_user_input('Press Enter after reporting error to continue...')
 
 
 if __name__ == '__main__':
