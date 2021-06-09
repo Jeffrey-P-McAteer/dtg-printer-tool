@@ -1,0 +1,39 @@
+<Order>
+  <Id>testjob01</Id>
+  <Images>
+    <Image>
+      <Id>testjob01-i0</Id>
+      <SourceImage>/home/aeoon/AeoonPrint/jobs/testjob01.png</SourceImage>
+      <RipedImage>testjob01</RipedImage> <!-- the .prn file base name -->
+      <RipProfile>shirt-white</RipProfile>
+      <ColorPasses>3</ColorPasses>
+      <Size>
+        <Width>100</Width>
+        <Height>240</Height>
+      </Size>
+      <Rotation>0</Rotation>
+      <RipStatus>
+        <StatusCode>1</StatusCode>
+        <Message>Ok</Message>
+      </RipStatus>
+    </Image>
+  </Images>
+  <Products>
+    <Product>
+      <Id>testjob01-p0</Id>
+      <DesiredCount>1</DesiredCount>
+      <Material>AAA of the Loom white, L</Material>
+      <Prints>
+        <Print>
+          <Id>testjob01-p0p1</Id>
+          <ImageId>testjob01-i0</ImageId>
+          <PrintArea>front</PrintArea>
+          <Position>
+            <X>0</X>
+            <Y>0</Y>
+          </Position>
+        </Print>
+      </Prints>
+    </Product>
+  </Products>
+</Order>
