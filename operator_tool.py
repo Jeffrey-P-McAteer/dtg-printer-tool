@@ -86,6 +86,8 @@ def main(args=sys.argv):
 
       with open(job_xml_file, 'w') as fd:
         fd.write('''
+<?xml version="1.0" encoding="UTF-8" ?>
+
 <Order>
   <Id>{job_name}</Id>
   <Images>
