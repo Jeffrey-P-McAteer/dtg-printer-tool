@@ -1,14 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 
 <Order>
   <Id>testjob01</Id>
   <Images>
     <Image>
       <Id>testjob01-i0</Id>
-      <SourceImage>/home/aeoon/AeoonPrint/jobs/testjob01.png</SourceImage>
-      <RipedImage>testjob01</RipedImage> <!-- the .prn file base name -->
+      <SourceImage>C:\Desktop\test automation\hotfolder\DATA.png</SourceImage>
       <RipProfile>shirt-white</RipProfile>
-      <ColorPasses>3</ColorPasses>
       <Size>
         <Width>100</Width>
         <Height>240</Height>
