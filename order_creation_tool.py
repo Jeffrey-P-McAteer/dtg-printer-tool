@@ -14,7 +14,7 @@ if 'AUTORIP_XML_IN_DIRECTORY' in os.environ:
   AUTORIP_XML_IN_DIRECTORY = os.environ['AUTORIP_XML_IN_DIRECTORY']
 
 # Change "X:" to the location of the directory holding new order .csv files
-PRE_RIP_ORDERS_CSV_DIR = 'X:\\'
+PRE_RIP_ORDERS_CSV_DIR = r'C:\Users\17044\Downloads'
 
 # For testing
 if 'PRE_RIP_ORDERS_CSV_DIR' in os.environ:
