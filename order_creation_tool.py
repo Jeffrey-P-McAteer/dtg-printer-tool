@@ -7,7 +7,7 @@ import traceback
 import time
 
 # Change to the windows folder that the ripping software watches for new rip orders.
-AUTORIP_XML_IN_DIRECTORY = r'C:\Users\17044\Desktop\test automation'
+AUTORIP_XML_IN_DIRECTORY = r'C:\Users\17044\Desktop\test automation\hotfolder'
 
 # For testing
 if 'AUTORIP_XML_IN_DIRECTORY' in os.environ:
