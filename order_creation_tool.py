@@ -81,16 +81,16 @@ def create_order_rip_xml_request(order_csv_file):
 
         print('Creating rip order for item "{}" ()'.format(item_name, item_code))
 
-        lead_time = row['LeadTime']
-        print_category = row['U_ARGNS_CATEGORY']
-        columns = row['U_ARGNS_COL']
-        art_type = row['U_ARGNS_ART_TYPE']
-        graphic_category = row['U_ARGNS_GRAPHIC_CAT']
-        graphic_type = row['U_ARGNS_GRAPHIC_TYPE']
-        number_of_colors = row['U_ARGNS_NUM_COLORS']
-        material = row['U_ARGNS_MATERIAL']
-        height = row['U_ARGNS_ART_TYPE_SIZE_HEIGHT']
-        width = row['U_ARGNS_ART_TYPE_SIZE_WIDTH']
+        lead_time = row.get('LeadTime', '')
+        print_category = row.get('U_ARGNS_CATEGORY', '')
+        columns = row.get('U_ARGNS_COL', '')
+        art_type = row.get('U_ARGNS_ART_TYPE', '')
+        graphic_category = row.get('U_ARGNS_GRAPHIC_CAT', '')
+        graphic_type = row.get('U_ARGNS_GRAPHIC_TYPE', '')
+        number_of_colors = row.get('U_ARGNS_NUM_COLORS', '')
+        material = row.get('U_ARGNS_MATERIAL', '')
+        height = row.get('U_ARGNS_ART_TYPE_SIZE_HEIGHT', '')
+        width = row.get('U_ARGNS_ART_TYPE_SIZE_WIDTH', '')
 
         print('Lead Time = {}'.format(lead_time))
         print('Category = {}'.format(print_category))
@@ -118,18 +118,18 @@ def create_order_rip_xml_request(order_csv_file):
         print('height = {}'.format(height))
 
         # TODO auto-map x and y from some known profiles
-        x = ''
+        x = row.get('y', '')
         if not x:
           print('X is empty! Please input x manually (0=left of shirt, ???=right):')
           x = get_user_input('x: ')
 
-        y = ''
+        y = row.get('y', '')
         if not y:
           print('Y is empty! Please input y manually (0=top of shirt, ???=bottom):')
           y = get_user_input('y: ')
         
         # TODO map this from a .csv file or something
-        rip_profile = ''
+        rip_profile = row.get('rip-profile', '')
         if not rip_profile:
           print('Could not determine rip profile, please enter one manually (eg shirt-white):')
           rip_profile = get_user_input('rip_profile: ')
@@ -200,6 +200,20 @@ def create_order_rip_xml_request(order_csv_file):
 ).strip())
 
         print('Created rip request {}'.format(request_xml_file))
+
+        # Poll for 15 seconds to ensure file is accepted by auto-rip SW
+        print('Polling request until accepted')
+        accepted = False
+        for _ in range(0, 10 * 2):
+          print('.', end='', flush=True)
+          time.sleep(0.5)
+          if not os.path.exists(request_xml_file):
+            accepted = True
+            break
+
+        if accepted:
+          print('Auto-rip process started!')
+
         print('Press enter to continue...')
         get_user_input()
         clear_screen()
