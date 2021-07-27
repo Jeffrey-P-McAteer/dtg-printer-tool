@@ -9,16 +9,26 @@ import time
 # Change to the windows folder that the ripping software watches for new rip orders.
 AUTORIP_XML_IN_DIRECTORY = r'C:\Users\17044\Desktop\test automation\hotfolder'
 
+# Change "X:" to the location of the directory holding new order .csv files
+PRE_RIP_ORDERS_CSV_DIR = r'C:\Users\17044\Downloads'
+
+# For each line in each .csv file, the ItemCode
+# column will be read + this directory will be searched for a
+# .png or .jpg file containing "ItemCode" anywhere in the name.
+PRE_RIP_ORDERS_IMAGES_DIR = r'C:\Users\17044\Downloads'
+
 # For testing
 if 'AUTORIP_XML_IN_DIRECTORY' in os.environ:
   AUTORIP_XML_IN_DIRECTORY = os.environ['AUTORIP_XML_IN_DIRECTORY']
 
-# Change "X:" to the location of the directory holding new order .csv files
-PRE_RIP_ORDERS_CSV_DIR = r'C:\Users\17044\Downloads'
-
 # For testing
 if 'PRE_RIP_ORDERS_CSV_DIR' in os.environ:
   PRE_RIP_ORDERS_CSV_DIR = os.environ['PRE_RIP_ORDERS_CSV_DIR']
+
+# For testing
+if 'PRE_RIP_ORDERS_IMAGES_DIR' in os.environ:
+  PRE_RIP_ORDERS_IMAGES_DIR = os.environ['PRE_RIP_ORDERS_IMAGES_DIR']
+
 
 def clear_screen():
   os.system('cls' if os.name=='nt' else 'clear')
@@ -39,6 +49,19 @@ def get_user_file_pick():
     import tkinter
     from tkinter import filedialog
     return filedialog.askopenfilename()
+
+def search_for_prerip_image(name):
+  """
+  Searches PRE_RIP_ORDERS_IMAGES_DIR and returns the first file ending in .png or .jpg
+  which contains "name" in its filename.
+  """
+  for dirpath, dirnames, filenames in os.walk(PRE_RIP_ORDERS_IMAGES_DIR):
+    for file in filenames:
+      if name in file.lower() and (file.lower().endswith('.png') or file.lower().endswith('.jpg')):
+        # We found it!
+        return os.path.join(dirpath, file)
+
+  return None
 
 def create_order_rip_xml_request(order_csv_file):
   print('Reading orders from {}'.format(order_csv_file))
@@ -111,7 +134,13 @@ def create_order_rip_xml_request(order_csv_file):
           print('Could not determine rip profile, please enter one manually (eg shirt-white):')
           rip_profile = get_user_input('rip_profile: ')
 
-        image_file = ''
+        image_file = search_for_prerip_image(item_code)
+        if image_file:
+          print('Press enter to use the image {} for print code {}'.format(os.path.basename(image_file), item_code))
+          get_user_input()
+        else:
+          print('No image file found within {} for print code {}'.format(PRE_RIP_ORDERS_IMAGES_DIR, item_code))
+
         while not image_file or not os.path.exists(image_file):
           print('Press enter to select an image file for this rip')
           get_user_input()

@@ -13,12 +13,12 @@ import shutil
 # Change "Y:" to the windows folder that contains already-ripped .xml files.
 RIPPED_XML_OUT_DIRECTORY = r'C:\Users\17044\Desktop\test automation\done'
 
+# Change "X:" to the windows drive that has the network share mounted for the printer's "orders" directory
+PRINT_ORDERS_HOTFOLDER = 'X:\\'
+
 # For testing
 if 'RIPPED_XML_OUT_DIRECTORY' in os.environ:
   RIPPED_XML_OUT_DIRECTORY = os.environ['RIPPED_XML_OUT_DIRECTORY']
-
-# Change "X:" to the windows drive that has the network share mounted for the printer's "orders" directory
-PRINT_ORDERS_HOTFOLDER = 'X:\\'
 
 # For testing
 if 'PRINT_ORDERS_HOTFOLDER' in os.environ:
@@ -40,8 +40,6 @@ def search_for_rip_xml(upc):
   and returns the first match
   """
   for dirpath, dirnames, filenames in os.walk(RIPPED_XML_OUT_DIRECTORY):
-    # Do not search in already-printing items
-    
     for file in filenames:
       if upc in file.lower() and file.lower().endswith('.xml'):
         # We found it!
