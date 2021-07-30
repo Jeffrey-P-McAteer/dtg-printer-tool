@@ -56,3 +56,43 @@ and one on the operator's PC to read in scanned UPC codes and send them to the p
 Where `%HOMEPATH%\Downloads\rconn_pc_tool.py` is the location of the downloaded file (eg `C:\Users\JSmith\Downloads\rconn_pc_tool.py`)
 
 
+
+# Operation Planning
+
+## Stage 1: bulk rip orders
+
+Inputs:
+
+ - `PRE_RIP_ORDERS_CSV_DIR` - a directory containing customer .csv orders with columns `ItemCode`, `ItemName`, `U_ARGNS_ART_TYPE_SIZE_HEIGHT`, and `U_ARGNS_ART_TYPE_SIZE_WIDTH`
+ - `PRE_RIP_ORDERS_IMAGES_DIR` - a directory containing .jpg or .png images with names containing `ItemCode` for each input order
+
+The operator will need to ensure the ripping SW is watching the folder `AUTORIP_XML_IN_DIRECTORY`, then run `order_creation_tool.py`.
+The tool will prompt for unknown inputs (x,y,width,height,shirt profile information) all of which may be further automated by
+adding the data to columns in the .csv file. Currently the following data is ingested:
+
+ - `width = U_ARGNS_ART_TYPE_SIZE_WIDTH`
+ - `height = U_ARGNS_ART_TYPE_SIZE_HEIGHT`
+ - `x = x`
+ - `y = y`
+ - `material = U_ARGNS_MATERIAL`
+ - `rip_profile = rip-profile`
+
+If an image with a matching barcode is not found the operator will be prompted to pick one from a dialogue.
+
+Outputs:
+ - `AUTORIP_XML_IN_DIRECTORY` - directory ripping SW watches for input .xml orders.
+
+## Stage 2: bulk print
+
+Inputs:
+
+ - scanned barcode
+ - `RIPPED_XML_OUT_DIRECTORY` - directory rip software writes .xml to
+
+The operator will run `operator_tool.py` and scan or type barcodes into the prompt. The tool will then find the order .xml under `RIPPED_XML_OUT_DIRECTORY` and copy it to `PRINT_ORDERS_HOTFOLDER`, at which point the printer should begin printing.
+
+Outputs:
+ - `PRINT_ORDERS_HOTFOLDER` - directory mapped to printer's "orders" directory
+
+
+
