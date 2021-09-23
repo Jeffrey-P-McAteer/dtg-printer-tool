@@ -204,7 +204,7 @@ def create_order_rip_xml_request(order_csv_file):
         # Poll for 15 seconds to ensure file is accepted by auto-rip SW
         print('Polling request until accepted')
         accepted = False
-        for _ in range(0, 10 * 2):
+        for _ in range(0, 25 * 2):
           print('.', end='', flush=True)
           time.sleep(0.5)
           if not os.path.exists(request_xml_file):
