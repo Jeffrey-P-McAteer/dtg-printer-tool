@@ -231,11 +231,24 @@ def create_order_rip_xml_request(order_csv_file):
 
 
 def main(args=sys.argv):
+  processed_at_least_one = False
   
   for dirpath, dirnames, filenames in os.walk(PRE_RIP_ORDERS_CSV_DIR):
     for file in filenames:
       if file.lower().endswith('.csv'):
+        processed_at_least_one = True
         create_order_rip_xml_request( os.path.join(dirpath, file) )
+
+  if not processed_at_least_one:
+    print('''
+WARNING: No input .csv files found, please ensure that either:
+ - pre-rip .csv files have been added to {PRE_RIP_ORDERS_CSV_DIR}
+or
+ - The PRE_RIP_ORDERS_CSV_DIR variable in {script_path}
+   has been updated to point to the pre-rip .csv directory.
+'''.format(PRE_RIP_ORDERS_CSV_DIR=PRE_RIP_ORDERS_CSV_DIR, script_path=__file__))
+    print('Press enter to continue...')
+    get_user_input()
 
 
 
